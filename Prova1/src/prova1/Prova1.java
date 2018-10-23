@@ -5,6 +5,7 @@
  */
 package prova1;
 
+import java.awt.GraphicsEnvironment;
 import java.util.*;
 /**
  *
@@ -65,26 +66,72 @@ public class Prova1 {
             System.out.printf("Il Fattoriale di %d è : %.0f\n", i+1 , fattoriali[i]);
             //System.out.println(fattoriali[i]);
         */    
+        //GraphicsEnvironment.getLocalGraphicsEnvironment();
         for (int r=0; r<riga;r++) 
             for(int c=0; c<colonna;c++)
                 tabellina[r][c] = (c+1)*(r+1);
         int spaziatura = 1;
         for(int s=tabellina[riga-1][colonna-1]; s>=1; s/=10)
             spaziatura++;            
-        
-        for (int r=0; r<riga;r++){ 
-            for(int c=0; c<colonna;c++){
-                System.out.printf("%"+spaziatura+"d",tabellina[r][c]);
+        // *********** stampa della tabellina con formattazione output *****************************
+        for (int r=0; r<riga;r++)
+        { 
+            if (r==0)
+            {
+                for(int c=0; c<colonna;c++)
+                {
+                
+                    if (c==0)
+                        System.out.print('┌');
+                    for(int d=0; d<(spaziatura);d++)
+                        System.out.print('─');
+                    if (c<colonna-1)
+                        System.out.print('┬');
+                    else
+                        System.out.println('┐');
+                }
             }
-            System.out.println();
+            if (r<riga)
+            {    // stampa i dati tabellina
+                for(int c=0; c<colonna;c++)
+                    System.out.printf("│%"+spaziatura+"d  ", tabellina[r][c]);
+              
+                    System.out.println("│");
+                // stampa cornice centrale    
+                if (r<riga-1)
+                {
+                    for(int c=0; c<colonna;c++)
+                    {
+                        if (c==0)
+                            System.out.print('├');
+                        else
+                            System.out.print('┼');
+                        for(int d=0; d<(spaziatura);d++)
+                            System.out.print('─');
+                     }
+                    System.out.println('┤');
+                }
+            } 
+            
         }
-}
-
-public static double calcolaFattoriale(int x)
-{
-		if (x <= 0)
-			return 1;
-		else
-			return (x * calcolaFattoriale(x-1));
-}
+        // stampa cornice bassa
+                for(int c=0; c<colonna;c++)
+                {
+                if (c==0)
+                    System.out.print('└');
+                else
+                    System.out.print('┴');
+                for(int d=0; d<(spaziatura);d++)
+                    System.out.print('─');
+                }
+                System.out.println('┘');
+    }
+            
+    public static double calcolaFattoriale(int x)
+    {
+                    if (x <= 0)
+                            return 1;
+                    else
+                            return (x * calcolaFattoriale(x-1));
+    }
 }    
