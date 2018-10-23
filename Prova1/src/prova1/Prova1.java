@@ -20,9 +20,12 @@ public class Prova1 {
         String[] _nomeMese = {"Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno",
                             "Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"};
         double[] fattoriali = new double[12] ;
+        int colonna = 10;
+        int riga =10;
+        int[][] tabellina = new int[riga][colonna];
         int mese, anno;
         boolean bisestile = false;
-        Scanner input = new Scanner(System.in);
+       /* Scanner input = new Scanner(System.in);
         System.out.print("Digita il mese :");
         mese = input.nextInt();
         System.out.print("Digita l'anno :");
@@ -61,6 +64,20 @@ public class Prova1 {
 	for (int i=0; i<fattoriali.length;i++) 
             System.out.printf("Il Fattoriale di %d è : %.0f\n", i+1 , fattoriali[i]);
             //System.out.println(fattoriali[i]);
+        */    
+        for (int r=0; r<riga;r++) 
+            for(int c=0; c<colonna;c++)
+                tabellina[r][c] = (c+1)*(r+1);
+        int spaziatura = 1;
+        for(int s=tabellina[riga-1][colonna-1]; s>=1; s/=10)
+            spaziatura++;            
+        
+        for (int r=0; r<riga;r++){ 
+            for(int c=0; c<colonna;c++){
+                System.out.printf("%"+spaziatura+"d",tabellina[r][c]);
+            }
+            System.out.println();
+        }
 }
 
 public static double calcolaFattoriale(int x)
