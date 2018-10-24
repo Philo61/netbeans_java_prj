@@ -5,7 +5,6 @@
  */
 package prova1;
 
-import java.awt.GraphicsEnvironment;
 import java.util.*;
 /**
  *
@@ -25,38 +24,19 @@ public class Prova1 {
         int riga =10;
         int[][] tabellina = new int[riga][colonna];
         int mese, anno;
-        boolean bisestile = false;
-       /* Scanner input = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         System.out.print("Digita il mese :");
         mese = input.nextInt();
         System.out.print("Digita l'anno :");
         anno = input.nextInt();
-        
-        if (anno%4 == 0)
-            bisestile = true;
-        
+                       
         System.out.printf("Il mese richiesto è %s dell'anno %d", _nomeMese[mese-1], anno);
         
-        switch (mese) {
-            case 1:   
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                System.out.println(" e ha 31 giorni");
-                break;
-            case 2: // febbraio  
-                if (bisestile)
-                    System.out.println(", essendo bisestile ha 29 giorni");
-                else
-                    System.out.println(" e ha 28 giorni");
-                break;
-            default: // mesi con 30 gg
-                    System.out.println(" e ha 30 giorni");
-                break;
-        } 
+        if (annoBisestile(anno) && mese==2)
+            System.out.println(", essendo bisestile ha 29 giorni");
+        else
+            System.out.printf(" e ha %2d giorni", maxDayofMonth(mese));
+                
         System.out.printf("Il Fattoriale del mese di %s è : %.0f\n\n" ,_nomeMese[mese-1] , calcolaFattoriale(mese));
         
         for (int i=0; i<fattoriali.length;i++) 
@@ -65,7 +45,7 @@ public class Prova1 {
 	for (int i=0; i<fattoriali.length;i++) 
             System.out.printf("Il Fattoriale di %d è : %.0f\n", i+1 , fattoriali[i]);
             //System.out.println(fattoriali[i]);
-        */    
+            
         //GraphicsEnvironment.getLocalGraphicsEnvironment();
         for (int r=0; r<riga;r++) 
             for(int c=0; c<colonna;c++)
@@ -133,5 +113,34 @@ public class Prova1 {
                             return 1;
                     else
                             return (x * calcolaFattoriale(x-1));
+    }
+    
+    public static boolean annoBisestile(int anno)
+    {
+        return (anno%4 == 0)  ?  true : false;        
+    }
+    
+    public static int maxDayofMonth(int nmese)
+    {
+        int daymax =0;
+        switch (nmese) 
+       {
+            case 1:   
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                daymax = 31;
+                break;
+            case 2: // febbraio  
+                daymax = 28;
+                break;
+            default: // mesi con 30 gg
+                    daymax = 30;
+                break;
+        }  
+        return daymax;
     }
 }    
