@@ -6,6 +6,7 @@
 package archiviodipendenti;
 
 import java.util.*;
+
 /**
  *
  * @author admin
@@ -20,8 +21,12 @@ public class DipendentiMain {
         boolean continua = true;
         int maxdip = 9;
         int indexDip =0;
-        String[][] _ldIndirizzo = {{"Via",""},{"Numero Civico",""},{"CAP:",""},{"Città",""}};
-        Dipendente[] DBdipendente = new Dipendente[10]; //inizializzo archivio di 11 elementi
+        FilesuDisco archivio = new FilesuDisco();
+        String[][] _ldIndirizzo = {{"Via",""},{"Numero Civico",""},{"CAP:",""},{"Città",""},{"Telefono:",""}};
+        
+        Dipendente[] dipendenti = archivio.read(maxdip);
+                //inizializzo archivio di 11 elementi
+        
         ListaDipendenti rubrica = new ListaDipendenti();
         Scanner input = new Scanner(System.in);
 		while (continua) 
@@ -38,52 +43,54 @@ public class DipendentiMain {
                         switch (s) {
                             case "0":   System.out.print("Richiesta Elenco");
                                 if (indexDip>0)
-                                    rubrica.visualizza(DBdipendente, indexDip);
+                                    rubrica.visualizza(dipendenti, indexDip);
                                 break;
                             case "1":   System.out.print("\nRichiesta Visualizza dipendente n.ro: ");
                                 int xd = input.nextInt()-1; // indice da 0
                                 if (xd<=indexDip) {
-                                    System.out.printf("\nMatricola dipendente: %s", DBdipendente[xd].getmatricola());
-                                    System.out.printf("\nNome: %s %s", DBdipendente[xd].getcognome(), DBdipendente[xd].getnome());
-                                    System.out.printf("\nIndirizzo: %s,%s %s - %s", DBdipendente[xd].getresidente().getVia(),DBdipendente[xd].getresidente().getnumeroCivico(),
-                                            DBdipendente[xd].getresidente().getCap(), DBdipendente[xd].getresidente().getCitta());
-                                    System.out.printf("\nSede di Lavoro: %s,%s %s - %s", DBdipendente[xd].getsedeLavoro().getVia(),DBdipendente[xd].getsedeLavoro().getnumeroCivico(),
-                                            DBdipendente[xd].getsedeLavoro().getCap(), DBdipendente[xd].getsedeLavoro().getCitta());
+                                    System.out.printf("\nMatricola dipendente: %s", dipendenti[xd].getmatricola());
+                                    System.out.printf("\nNome: %s %s", dipendenti[xd].getcognome(), dipendenti[xd].getnome());
+                                    System.out.printf("\nIndirizzo: %s,%s %s - %s", dipendenti[xd].getresidente().getVia(),dipendenti[xd].getresidente().getnumeroCivico(),
+                                            dipendenti[xd].getresidente().getCap(), dipendenti[xd].getresidente().getCitta());
+                                    System.out.printf("\nSede di Lavoro: %s,%s %s - %s %s", dipendenti[xd].getsedeLavoro().getVia(),dipendenti[xd].getsedeLavoro().getnumeroCivico(),
+                                            dipendenti[xd].getsedeLavoro().getCap(), dipendenti[xd].getsedeLavoro().getCitta(), dipendenti[xd].getsedeLavoro().getTelefono());
                                 }
                                 break;
                             case "2":   
                                 if (indexDip<maxdip) {
                                     System.out.printf("\nRichiesta Inserimento dipendente N.ro %d\n",indexDip+1);
-                                    DBdipendente[indexDip] = new Dipendente(); // istanzio nuovo dip
+                                    dipendenti[indexDip] = new Dipendente(); // istanzio nuovo dip
                                     System.out.print("Matricola dipendente: ");
                                     s = input.nextLine();
-                                    DBdipendente[indexDip].setmatricola(s);
+                                    dipendenti[indexDip].setmatricola(s);
                                     System.out.printf("\nCognome: "); 
                                     s = input.nextLine();
-                                    DBdipendente[indexDip].setcognome(s);
+                                    dipendenti[indexDip].setcognome(s);
                                     System.out.printf(" Nome: ");
                                     s = input.nextLine();
-                                    DBdipendente[indexDip].setnome(s);
+                                    dipendenti[indexDip].setnome(s);
                                     System.out.println("\nIndirizzo:"); // residenza
                                     for (int x=0;x<4;x++){
                                         System.out.printf("%s :", _ldIndirizzo[x][0]);
                                         _ldIndirizzo[x][1] = input.nextLine();
                                     }
                                     //{"Via",""},{"Numero Civico",""},{"CAP:",""},{"Città"
-                                    DBdipendente[indexDip].setresidente(_ldIndirizzo[0][1],_ldIndirizzo[1][1],_ldIndirizzo[2][1],_ldIndirizzo[3][1]);
+                                    dipendenti[indexDip].setresidente(_ldIndirizzo[0][1],_ldIndirizzo[1][1],_ldIndirizzo[2][1],_ldIndirizzo[3][1]);
 
                                     System.out.println("\nSede di Lavoro:");  // sede di lavoro
-                                    for (int x=0;x<4;x++){
+                                    for (int x=0;x<5;x++){
                                         System.out.printf("%s :", _ldIndirizzo[x][0]);
                                         _ldIndirizzo[x][1] = input.nextLine();
                                     }
-                                    DBdipendente[indexDip].setsedeLavoro(_ldIndirizzo[0][1],_ldIndirizzo[1][1],_ldIndirizzo[2][1],_ldIndirizzo[3][1]);
+                                    dipendenti[indexDip].setsedeLavoro(_ldIndirizzo[0][1],_ldIndirizzo[1][1],_ldIndirizzo[2][1],_ldIndirizzo[3][1],_ldIndirizzo[4][1]);
                                     indexDip++; // incremento 
                                 }
                                 else
                                    System.out.println("Numero MAX di dipendenti raggiunto!"); 
                                 break;
                             case "5":   System.out.println("Richiesta Uscita");
+                                // salva archivio su disco ed esce......
+                                archivio.write(dipendenti, indexDip);
                                 continua = false;	
                                 break;
 			}
