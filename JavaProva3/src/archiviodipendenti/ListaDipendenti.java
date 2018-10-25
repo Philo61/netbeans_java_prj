@@ -13,6 +13,7 @@ public class ListaDipendenti {
     public void aggiungi(Dipendente nuovodip)
     {
         System.out.println("\n\n\nINSERIMENTO NUOVO DIPENDENTE");
+        
     }
     public void modifica(Dipendente dipendente)
     {

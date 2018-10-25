@@ -26,6 +26,8 @@ public class DipendentiMain {
         
         Dipendente[] dipendenti = archivio.read(maxdip);
                 //inizializzo archivio di 11 elementi
+        while (dipendenti[indexDip] != null)
+            indexDip++;
         
         ListaDipendenti rubrica = new ListaDipendenti();
         Scanner input = new Scanner(System.in);
