@@ -52,15 +52,15 @@ public class ListaDipendenti {
         String[][] _ldIndirizzo = {{"Via",""},{"Numero Civico",""},{"CAP:",""},{"Città",""},{"Telefono:",""}};
         Scanner input = new Scanner(System.in);
         System.out.print("Matricola dipendente: ");
-        s = dipendente.getmatricola();
+        //s = dipendente.getmatricola();
         s = input.nextLine();
         dipendente.setmatricola(s);
         System.out.printf("\nCognome: ");
-        s = dipendente.getcognome();
+        //s = dipendente.getcognome();
         s = input.nextLine();
         dipendente.setcognome(s);
         System.out.printf(" Nome: ");
-        s = dipendente.getnome();
+        //s = dipendente.getnome();
         s = input.nextLine();
         dipendente.setnome(s);
         System.out.println("\nIndirizzo:"); // residenza

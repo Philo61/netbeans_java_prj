@@ -37,9 +37,6 @@ public class FilesuDisco {
                 String line = reader.readLine();
                 while ((line!=null) && (indexDip<dipmax)) {
                     broken_line = line.split(";");
-                    //for(int x=0;x<broken_line.length;x++)
-                     //   System.out.print(broken_line[x]+"--");
-                    
                     listadipendenti[indexDip] = new Dipendente(); // istanzio nuovo dip
                     listadipendenti[indexDip].setmatricola(broken_line[0]);
                     listadipendenti[indexDip].setcognome(broken_line[1]);
@@ -50,6 +47,7 @@ public class FilesuDisco {
                     line = reader.readLine();
                     indexDip++;
                 }
+                reader.close(); // chiudo il file aperto
             }
         }
         catch(IOException e) {
@@ -90,7 +88,7 @@ public class FilesuDisco {
                     bw.write(lista[x].getsedeLavoro().getCap()+";");
                     bw.write(lista[x].getsedeLavoro().getCitta()+";");
                     bw.write(lista[x].getsedeLavoro().getTelefono());
-                    bw.write("\r\n");
+                    bw.write("\r\n");   // chiude la riga per il prossimo record
                 }
                 
 		bw.flush();
